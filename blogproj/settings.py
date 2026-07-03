@@ -30,6 +30,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-ac9cli-_t+#*hhw&$*!#f
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app']
+CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app']
 
 
 # Application definition
@@ -60,7 +61,7 @@ ROOT_URLCONF = 'blogproj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],   # ✅ SIRF YAHAN CHANGE KIYA HAI
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
