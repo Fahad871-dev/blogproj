@@ -29,9 +29,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-ac9cli-_t+#*hhw&$*!#f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com']
-CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', 'blogproj.vercel.app']
+CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app', 'https://blogproj.vercel.app']
 
 # Application definition
 
@@ -82,8 +81,9 @@ WSGI_APPLICATION = 'blogproj.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
-        conn_max_age=600
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True  
     )
 }
 
