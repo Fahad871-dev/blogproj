@@ -4,16 +4,6 @@
 {% block title %}Home - My Blog{% endblock %}
 
 {% block content %}
-<style>
-    /* Page-specific styles */
-    .page-title { color: #333; font-size: 28px; margin-bottom: 20px; }
-    .posts-grid { display: flex; flex-direction: column; gap: 20px; }
-    .post { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid #667eea; }
-    .btn { display: inline-block; padding: 8px 18px; border-radius: 8px; text-decoration: none; }
-    .btn-primary { background: #667eea; color: white; }
-    .btn-warning { background: #ed8936; color: white; }
-    .btn-danger { background: #fc8181; color: white; }
-</style>
 
     <h2 class="page-title">📚 All Posts</h2>
 
@@ -40,15 +30,15 @@
                 <p class="content">{{ post.content|truncatewords:30 }}</p>
                 <p class="meta">📅 {{ post.created_at|date:"F d, Y, h:i a" }}</p>
                 <div class="actions">
-                    <a href="{% url 'detail' pk=post.pk %}" class="btn btn-primary">Read More</a>
+                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More</a>
                     {% if user == post.author or user.is_superuser %}
-                        <a href="{% url 'edit_post' pk=post.pk %}" class="btn btn-warning">✏️ Edit</a>
-                        <a href="{% url 'delete_post' pk=post.pk %}" class="btn btn-danger">🗑️ Delete</a>
+                        <a href="{% url 'post_edit' post.pk %}" class="btn btn-warning">✏️ Edit</a>
+                        <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger">🗑️ Delete</a>
                     {% endif %}
                 </div>
             </div>
         {% empty %}
-            <p>No posts yet. <a href="{% url 'create_post' %}">Create one</a></p>
+            <p>No posts yet. <a href="{% url 'post_create' %}">Create one</a></p>
         {% endfor %}
     </div>
 {% endblock %}
