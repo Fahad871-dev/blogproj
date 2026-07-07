@@ -1,249 +1,365 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Home - My Blog{% endblock %}
-
-{% block content %}
-<style>
-    /* ===== HOMEPAGE MODERN STYLES ===== */
-    .page-title {
-        text-align: center;
-        font-size: 32px;
-        font-weight: 700;
-        color: #2d3748;
-        margin-bottom: 30px;
-        letter-spacing: -0.5px;
-    }
-
-    /* Search Form */
-    .search-form {
-        display: flex;
-        gap: 12px;
-        margin-bottom: 35px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .search-form input[type="text"],
-    .search-form select {
-        padding: 12px 18px;
-        border: 2px solid #e2e8f0;
-        border-radius: 10px;
-        font-size: 15px;
-        background: white;
-        flex: 1;
-        min-width: 180px;
-        transition: all 0.3s;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-
-    .search-form input:focus,
-    .search-form select:focus {
-        outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
-    }
-
-    .search-form button {
-        padding: 12px 30px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-weight: 600;
-        font-size: 15px;
-        cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .search-form button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-    }
-
-    /* Posts Grid */
-    .posts-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 28px;
-        margin-top: 10px;
-    }
-
-    .post {
-        background: white;
-        padding: 24px 28px;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        border-left: 6px solid #667eea;
-        transition: transform 0.25s, box-shadow 0.25s;
-    }
-
-    .post:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 35px rgba(0,0,0,0.10);
-    }
-
-    .post h2 {
-        font-size: 24px;
-        font-weight: 700;
-        color: #2d3748;
-        margin-bottom: 6px;
-    }
-
-    .post .author {
-        font-size: 14px;
-        font-weight: 600;
-        color: #667eea;
-        margin-bottom: 8px;
-        letter-spacing: 0.3px;
-    }
-
-    .post .content {
-        font-size: 16px;
-        color: #4a5568;
-        line-height: 1.7;
-        margin: 12px 0 8px 0;
-    }
-
-    .post .meta {
-        font-size: 13px;
-        color: #a0aec0;
-        margin-bottom: 16px;
-        border-bottom: 1px solid #f0f0f0;
-        padding-bottom: 12px;
-    }
-
-    .post .actions {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 4px;
-    }
-
-    .post .btn {
-        padding: 8px 20px;
-        border: none;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-        transition: all 0.25s;
-    }
-
-    .btn-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-    }
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-    }
-
-    .btn-warning {
-        background: #ed8936;
-        color: white;
-    }
-    .btn-warning:hover {
-        background: #dd6b20;
-        transform: translateY(-2px);
-    }
-
-    .btn-danger {
-        background: #fc8181;
-        color: white;
-    }
-    .btn-danger:hover {
-        background: #f56565;
-        transform: translateY(-2px);
-    }
-
-    /* Empty state */
-    .no-posts {
-        text-align: center;
-        padding: 40px 20px;
-        font-size: 18px;
-        color: #718096;
-        background: #f7fafc;
-        border-radius: 16px;
-        border: 2px dashed #e2e8f0;
-    }
-
-    .no-posts a {
-        color: #667eea;
-        font-weight: 600;
-        text-decoration: none;
-    }
-
-    .no-posts a:hover {
-        text-decoration: underline;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-        .search-form {
-            flex-direction: column;
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home - My Blog</title>
+    <style>
+        /* ===== HOMEPAGE MODERN STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .search-form input,
-        .search-form select,
-        .search-form button {
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
             width: 100%;
-            min-width: unset;
+            padding: 40px 35px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
-        .post {
-            padding: 18px 16px;
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 25px;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
         }
-        .post h2 {
-            font-size: 20px;
+
+        .nav h1 {
+            font-size: 24px;
+            margin: 0;
+            color: white;
         }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.15);
+            transition: background 0.3s;
+            font-weight: 500;
+        }
+
+        .nav a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .nav .logout-btn {
+            background: rgba(255, 0, 0, 0.3);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .nav .logout-btn:hover {
+            background: rgba(255, 0, 0, 0.5);
+        }
+
+        .nav .welcome {
+            color: white;
+            font-weight: 500;
+        }
+
+        /* Page Title */
         .page-title {
-            font-size: 26px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
         }
+
+        /* Search Form */
+        .search-form {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .search-form input[type="text"],
+        .search-form select {
+            padding: 12px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            background: white;
+            flex: 1;
+            min-width: 180px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .search-form input:focus,
+        .search-form select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+        }
+
+        .search-form button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .search-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Posts Grid */
         .posts-grid {
-            gap: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            margin-top: 10px;
         }
-    }
-</style>
 
-<div class="container">
-    <h2 class="page-title">📚 All Posts</h2>
+        .post {
+            background: white;
+            padding: 24px 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-left: 6px solid #667eea;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
 
-    <!-- Search Form -->
-    <form method="GET" action="{% url 'home' %}" class="search-form">
-        <input type="text" name="search" placeholder="🔍 Search posts..." value="{{ request.GET.search }}">
-        <select name="author">
-            <option value="">All Authors</option>
-            {% for author in authors %}
-                <option value="{{ author.id }}" {% if request.GET.author == author.id|stringformat:'s' %}selected{% endif %}>
-                    {{ author.username }}
-                </option>
-            {% endfor %}
-        </select>
-        <button type="submit">Search</button>
-    </form>
+        .post:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.10);
+        }
 
-    <!-- Posts Grid -->
-    <div class="posts-grid">
-        {% for post in posts %}
-            <div class="post">
-                <h2>{{ post.title }}</h2>
-                <p class="author">✍️ Author: {{ post.author.username }}</p>
-                <p class="content">{{ post.content|truncatewords:30 }}</p>
-                <p class="meta">📅 {{ post.created_at|date:"F d, Y, h:i a" }}</p>
-                <div class="actions">
-                    <a href="{% url 'detail' pk=post.pk %}" class="btn btn-primary">Read More</a>
-                    {% if user == post.author or user.is_superuser %}
-                        <a href="{% url 'edit_post' pk=post.pk %}" class="btn btn-warning">✏️ Edit</a>
-                        <a href="{% url 'delete_post' pk=post.pk %}" class="btn btn-danger">🗑️ Delete</a>
-                    {% endif %}
+        .post h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 6px;
+        }
+
+        .post .author {
+            font-size: 14px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .post .content {
+            font-size: 16px;
+            color: #4a5568;
+            line-height: 1.7;
+            margin: 12px 0 8px 0;
+        }
+
+        .post .meta {
+            font-size: 13px;
+            color: #a0aec0;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 12px;
+        }
+
+        .post .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.25s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-warning {
+            background: #ed8936;
+            color: white;
+        }
+        .btn-warning:hover {
+            background: #dd6b20;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #fc8181;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #f56565;
+            transform: translateY(-2px);
+        }
+
+        /* Empty state */
+        .no-posts {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 18px;
+            color: #718096;
+            background: #f7fafc;
+            border-radius: 16px;
+            border: 2px dashed #e2e8f0;
+        }
+
+        .no-posts a {
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .no-posts a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .search-form {
+                flex-direction: column;
+            }
+            .search-form input,
+            .search-form select,
+            .search-form button {
+                width: 100%;
+                min-width: unset;
+            }
+            .post {
+                padding: 18px 16px;
+            }
+            .post h2 {
+                font-size: 20px;
+            }
+            .page-title {
+                font-size: 26px;
+            }
+            .posts-grid {
+                gap: 20px;
+            }
+            .container {
+                padding: 20px;
+            }
+            .nav {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .nav-right {
+                justify-content: center;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <div class="nav">
+            <h1>📝 My Blog</h1>
+            <div class="nav-right">
+                {% if user.is_authenticated %}
+                    <span class="welcome">👋 Welcome, {{ user.username }}!</span>
+                    <a href="{% url 'create_post' %}" class="btn btn-primary" style="background: rgba(255,255,255,0.2);">+ New Post</a>
+                    <form action="{% url 'logout' %}" method="POST" style="display: inline; margin: 0;">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn">🚪 Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary">🔑 Login</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <h2 class="page-title">📚 All Posts</h2>
+
+        <!-- Search Form -->
+        <form method="GET" action="{% url 'home' %}" class="search-form">
+            <input type="text" name="search" placeholder="🔍 Search posts..." value="{{ request.GET.search }}">
+            <select name="author">
+                <option value="">All Authors</option>
+                {% for author in authors %}
+                    <option value="{{ author.id }}" {% if request.GET.author == author.id|stringformat:'s' %}selected{% endif %}>
+                        {{ author.username }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Posts Grid -->
+        <div class="posts-grid">
+            {% for post in posts %}
+                <div class="post">
+                    <h2>{{ post.title }}</h2>
+                    <p class="author">✍️ Author: {{ post.author.username }}</p>
+                    <p class="content">{{ post.content|truncatewords:30 }}</p>
+                    <p class="meta">📅 {{ post.created_at|date:"F d, Y, h:i a" }}</p>
+                    <div class="actions">
+                        <a href="{% url 'detail' pk=post.pk %}" class="btn btn-primary">Read More</a>
+                        {% if user == post.author or user.is_superuser %}
+                            <a href="{% url 'edit_post' pk=post.pk %}" class="btn btn-warning">✏️ Edit</a>
+                            <a href="{% url 'delete_post' pk=post.pk %}" class="btn btn-danger">🗑️ Delete</a>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-        {% empty %}
-            <div class="no-posts">
-                <p>No posts yet. <a href="{% url 'create_post' %}">Create one</a></p>
-            </div>
-        {% endfor %}
+            {% empty %}
+                <div class="no-posts">
+                    <p>No posts yet. <a href="{% url 'create_post' %}">Create one</a></p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-</div>
-{% endblock %}
+</body>
+</html>
