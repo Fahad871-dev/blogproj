@@ -305,6 +305,7 @@
 @media (max-width: 768px) {
     body {
         padding: 0 !important;
+        margin: 0 !important;
         min-height: 100vh;
         align-items: flex-start !important;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -321,7 +322,7 @@
         box-shadow: none !important;
     }
     
-    /* Navigation - Right items neechy row mein */
+    /* Navigation */
     .nav {
         flex-direction: column !important;
         align-items: stretch !important;
@@ -330,11 +331,13 @@
         border-radius: 10px !important;
         margin-bottom: 15px !important;
         gap: 8px !important;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
     }
     
     .nav h1 {
         font-size: 22px !important;
         margin-bottom: 4px !important;
+        color: white !important;
     }
     
     .nav-right {
@@ -348,6 +351,7 @@
         padding: 6px 14px !important;
         font-size: 13px !important;
         border-radius: 8px !important;
+        color: white !important;
     }
     
     /* Page Title */
@@ -355,9 +359,10 @@
         font-size: 24px !important;
         margin-bottom: 15px !important;
         text-align: center !important;
+        color: #2d3748 !important;
     }
     
-    /* Search Form - select aur button neechy */
+    /* Search Form - Stack */
     .search-form {
         display: flex !important;
         flex-direction: column !important;
@@ -389,7 +394,7 @@
         order: 3 !important;
     }
     
-    /* Posts Grid - card length kam */
+    /* Posts Grid */
     .posts-grid {
         gap: 14px !important;
         margin-top: 5px !important;
@@ -400,11 +405,6 @@
         border-left-width: 4px !important;
         border-radius: 12px !important;
         box-shadow: 0 2px 10px rgba(0,0,0,0.06) !important;
-    }
-    
-    .post:hover {
-        transform: none !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.10) !important;
     }
     
     .post h2 {
@@ -439,11 +439,6 @@
         padding: 5px 12px !important;
         font-size: 12px !important;
         border-radius: 6px !important;
-    }
-    
-    .no-posts {
-        padding: 25px 15px !important;
-        font-size: 15px !important;
     }
 }
     </style>
