@@ -1,20 +1,180 @@
-{% extends 'posts/base.html' %}
+{% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <p><strong>Author:</strong> {{ post.author.username }}</p>
-    <p class="meta">📅 {{ post.created_at|date:"F d, Y, h:i a" }}</p>
-    <p>{{ post.content|linebreaks }}</p>
+<style>
+    /* ===== DETAIL PAGE MODERN STYLES ===== */
+    .detail-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px 0;
+    }
 
-    {% if user == post.author or user.is_superuser %}
-        <a href="{% url 'edit_post' pk=post.pk %}" class="btn btn-warning">✏️ Edit</a>
-        <form action="{% url 'delete_post' pk=post.pk %}" method="POST" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">🗑️ Delete</button>
-        </form>
-    {% endif %}
-    <br><br>
-    <a href="{% url 'home' %}" class="btn">← Back to Home</a>
+    .detail-container .post-header {
+        margin-bottom: 30px;
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 20px;
+    }
+
+    .detail-container h1 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 12px;
+        line-height: 1.3;
+    }
+
+    .detail-container .author-info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 5px;
+    }
+
+    .detail-container .author-name {
+        font-size: 16px;
+        font-weight: 600;
+        color: #667eea;
+    }
+
+    .detail-container .post-meta {
+        font-size: 14px;
+        color: #a0aec0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .detail-container .post-content {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        border-left: 6px solid #667eea;
+        margin-bottom: 30px;
+        line-height: 1.8;
+        font-size: 18px;
+        color: #2d3748;
+    }
+
+    .detail-container .post-content p {
+        margin-bottom: 16px;
+    }
+
+    .detail-container .post-content p:last-child {
+        margin-bottom: 0;
+    }
+
+    .detail-container .action-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+        padding-top: 20px;
+        border-top: 2px solid #f0f0f0;
+    }
+
+    .detail-container .btn {
+        padding: 10px 24px;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.25s;
+    }
+
+    .detail-container .btn-warning {
+        background: #ed8936;
+        color: white;
+    }
+    .detail-container .btn-warning:hover {
+        background: #dd6b20;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(237, 137, 54, 0.3);
+    }
+
+    .detail-container .btn-danger {
+        background: #fc8181;
+        color: white;
+    }
+    .detail-container .btn-danger:hover {
+        background: #f56565;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(252, 129, 129, 0.3);
+    }
+
+    .detail-container .btn-back {
+        background: #e2e8f0;
+        color: #2d3748;
+    }
+    .detail-container .btn-back:hover {
+        background: #cbd5e0;
+        transform: translateY(-2px);
+    }
+
+    .detail-container .delete-form {
+        display: inline;
+        margin: 0;
+    }
+
+    @media (max-width: 600px) {
+        .detail-container h1 {
+            font-size: 26px;
+        }
+        .detail-container .post-content {
+            padding: 20px;
+            font-size: 16px;
+        }
+        .detail-container .author-info {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+        }
+        .detail-container .action-buttons {
+            flex-direction: column;
+        }
+        .detail-container .btn {
+            width: 100%;
+            text-align: center;
+        }
+        .detail-container .delete-form {
+            display: block;
+            width: 100%;
+        }
+        .detail-container .delete-form button {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="detail-container">
+    <div class="post-header">
+        <h1>{{ post.title }}</h1>
+        <div class="author-info">
+            <span class="author-name">✍️ {{ post.author.username }}</span>
+            <span class="post-meta">📅 {{ post.created_at|date:"F d, Y, h:i a" }}</span>
+        </div>
+    </div>
+
+    <div class="post-content">
+        {{ post.content|linebreaks }}
+    </div>
+
+    <div class="action-buttons">
+        {% if user == post.author or user.is_superuser %}
+            <a href="{% url 'edit_post' pk=post.pk %}" class="btn btn-warning">✏️ Edit</a>
+            <form action="{% url 'delete_post' pk=post.pk %}" method="POST" class="delete-form">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">🗑️ Delete</button>
+            </form>
+        {% endif %}
+        <a href="{% url 'home' %}" class="btn btn-back">← Back to Home</a>
+    </div>
+</div>
 {% endblock %}

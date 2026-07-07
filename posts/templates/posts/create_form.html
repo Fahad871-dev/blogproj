@@ -1,13 +1,144 @@
-{% extends 'posts/base.html' %}
+{% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Create Post{% endblock %}
 
 {% block content %}
-    <h1>Create New Post</h1>
+<style>
+    /* ===== CREATE POST PAGE STYLES ===== */
+    .create-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 20px 0;
+    }
+
+    .create-container h2 {
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 25px;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .create-container form {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        border: 1px solid #f0f0f0;
+    }
+
+    .create-container form label {
+        display: block;
+        font-weight: 600;
+        color: #333;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+    }
+
+    .create-container form input,
+    .create-container form textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        box-sizing: border-box;
+        background: #fafafa;
+    }
+
+    .create-container form input:focus,
+    .create-container form textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+        background: white;
+    }
+
+    .create-container form textarea {
+        min-height: 200px;
+        resize: vertical;
+    }
+
+    .create-container .form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 25px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .create-container .btn-save {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px 40px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .create-container .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .create-container .btn-cancel {
+        background: #e2e8f0;
+        color: #333;
+        padding: 12px 35px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: background 0.3s;
+    }
+
+    .create-container .btn-cancel:hover {
+        background: #cbd5e0;
+    }
+
+    .create-container .errorlist {
+        color: #e53e3e;
+        background: #fff5f5;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        margin: 5px 0 10px 0;
+        list-style: none;
+    }
+
+    @media (max-width: 600px) {
+        .create-container form {
+            padding: 20px;
+        }
+        .create-container .form-actions {
+            flex-direction: column;
+        }
+        .create-container .btn-save,
+        .create-container .btn-cancel {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="create-container">
+    <h2>✏️ Create New Post</h2>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Save Post</button>
+        <div class="form-actions">
+            <button type="submit" class="btn-save">✅ Save Post</button>
+            <a href="{% url 'home' %}" class="btn-cancel">← Back</a>
+        </div>
     </form>
-    <a href="{% url 'home' %}" class="btn">← Back</a>
+</div>
 {% endblock %}
