@@ -1,24 +1,277 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Post</title>
+    <style>
+        /* ===== DELETE CONFIRM PAGE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            padding: 40px 35px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 25px;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .nav h1 {
+            font-size: 24px;
+            margin: 0;
+            color: white;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.15);
+            transition: background 0.3s;
+            font-weight: 500;
+        }
+
+        .nav a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .nav .logout-btn {
+            background: rgba(255, 0, 0, 0.3);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .nav .logout-btn:hover {
+            background: rgba(255, 0, 0, 0.5);
+        }
+
+        .nav .welcome {
+            color: white;
+            font-weight: 500;
+        }
+
+        /* Delete Container */
+        .delete-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .delete-container .delete-box {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 2px solid #fc8181;
+            text-align: center;
+        }
+
+        .delete-container h1 {
+            color: #e53e3e;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .delete-container .post-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d3748;
+            margin: 15px 0;
+            background: #f7fafc;
+            padding: 12px 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .delete-container .warning {
+            color: #e53e3e;
+            font-weight: 500;
+            margin: 15px 0;
+            font-size: 16px;
+        }
+
+        .delete-container .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .delete-container .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.25s;
+        }
+
+        .delete-container .btn-danger {
+            background: #fc8181;
+            color: white;
+        }
+        .delete-container .btn-danger:hover {
+            background: #f56565;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(252, 129, 129, 0.4);
+        }
+
+        .delete-container .btn-cancel {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+        .delete-container .btn-cancel:hover {
+            background: #cbd5e0;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 4px !important;
+                align-items: stretch !important;
+            }
+
+            .container {
+                padding: 15px 12px !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                min-height: 100vh !important;
+            }
+
+            .nav {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                text-align: center !important;
+                gap: 10px !important;
+            }
+
+            .nav h1 {
+                text-align: center !important;
+                font-size: 22px !important;
+            }
+
+            .nav-right {
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+            }
+
+            .nav .welcome {
+                width: 100% !important;
+                text-align: center !important;
+            }
+
+            .nav a, .nav .logout-btn {
+                font-size: 13px !important;
+                padding: 6px 14px !important;
+            }
+
+            .delete-container .delete-box {
+                padding: 25px 20px !important;
+            }
+
+            .delete-container h1 {
+                font-size: 24px !important;
+            }
+
+            .delete-container .post-title {
+                font-size: 18px !important;
+                padding: 10px 16px !important;
+            }
+
+            .delete-container .action-buttons {
+                flex-direction: column !important;
+                gap: 10px !important;
+            }
+
+            .delete-container .btn {
+                width: 100% !important;
+                text-align: center !important;
+                padding: 12px !important;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Delete Post</h1>
-    <p>Are you sure you want to delete <strong>"{{post.title}}"</strong>?</p>
-    
-     <form method="POST">   
-        {% csrf_token %}
-        <button type="submit" style="background: red; color: white; padding: 10px;">
-            Yes Delete
+    <div class="container">
+        <!-- Navigation -->
+        <div class="nav">
+            <h1>📝 My Blog</h1>
+            <div class="nav-right">
+                {% if user.is_authenticated %}
+                    <span class="welcome">👋 Welcome, {{ user.username }}!</span>
+                    <a href="{% url 'create_post' %}" class="btn btn-primary" style="background: rgba(255,255,255,0.2);">+ New Post</a>
+                    <form action="{% url 'logout' %}" method="POST" style="display: inline; margin: 0;">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn">🚪 Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary">🔑 Login</a>
+                {% endif %}
+            </div>
+        </div>
 
-        </button>
+        <!-- Delete Content -->
+        <div class="delete-container">
+            <div class="delete-box">
+                <h1>🗑️ Delete Post</h1>
+                <p class="warning">⚠️ Are you sure you want to delete this post?</p>
+                <div class="post-title">"{{ post.title }}"</div>
+                <p style="color: #e53e3e; font-weight: 500;">This action cannot be undone!</p>
 
-        <a href="{% url 'detail' pk=post.pk %}">Cancel</a>
-
-     </form>
-
+                <div class="action-buttons">
+                    <form method="POST" style="display: inline; margin: 0;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">✅ Yes, Delete</button>
+                    </form>
+                    <a href="{% url 'detail' pk=post.pk %}" class="btn btn-cancel">← Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
