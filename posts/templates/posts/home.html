@@ -1,19 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'posts/base.html' %}
 {% load static %}
 
 {% block title %}Home - My Blog{% endblock %}
 
 {% block content %}
-<style>   body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-            padding: 20px;
-        }</style>
     <h2 class="page-title">📚 All Posts</h2>
 
     <!-- Search Form -->
@@ -39,15 +29,15 @@
                 <p class="content">{{ post.content|truncatewords:30 }}</p>
                 <p class="meta">📅 {{ post.created_at|date:"F d, Y, h:i a" }}</p>
                 <div class="actions">
-                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More</a>
+                    <a href="{% url 'detail' pk=post.pk %}" class="btn btn-primary">Read More</a>
                     {% if user == post.author or user.is_superuser %}
-                        <a href="{% url 'post_edit' post.pk %}" class="btn btn-warning">✏️ Edit</a>
-                        <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger">🗑️ Delete</a>
+                        <a href="{% url 'edit_post' pk=post.pk %}" class="btn btn-warning">✏️ Edit</a>
+                        <a href="{% url 'delete_post' pk=post.pk %}" class="btn btn-danger">🗑️ Delete</a>
                     {% endif %}
                 </div>
             </div>
         {% empty %}
-            <p>No posts yet. <a href="{% url 'post_create' %}">Create one</a></p>
+            <p>No posts yet. <a href="{% url 'create_post' %}">Create one</a></p>
         {% endfor %}
     </div>
 {% endblock %}

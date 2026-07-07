@@ -1,19 +1,24 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Delete Post{% endblock %}
-{% block content %}
-<div class="delete-box">
-    <h1>🗑️ Delete Post</h1>
-    <p>Are you sure you want to delete <strong>"{{ post.title }}"</strong>?</p>
-    <div class="warning">⚠️ This action cannot be undone!</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Post</title>
+</head>
+<body>
+    <h1>Delete Post</h1>
+    <p>Are you sure you want to delete <strong>"{{post.title}}"</strong>?</p>
     
-    <form method="POST">
+     <form method="POST">   
         {% csrf_token %}
-        <div class="actions">
-            <button type="submit" class="btn btn-danger">Yes, Delete</button>
-            <a href="{% url 'post_detail' post.pk %}" class="btn btn-outline">Cancel</a>
-        </div>
-    </form>
-</div>
-{% endblock %}
+        <button type="submit" style="background: red; color: white; padding: 10px;">
+            Yes Delete
+
+        </button>
+
+        <a href="{% url 'detail' pk=post.pk %}">Cancel</a>
+
+     </form>
+
+</body>
+</html>

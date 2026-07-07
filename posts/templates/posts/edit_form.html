@@ -1,17 +1,26 @@
-{% extends 'base.html' %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit_Post</title>
+</head>
+<style>
+     body { font-family: Arial; margin: 50px; }
+        input, textarea { width: 100%; padding: 8px; margin: 10px 0; }
+        button { background: blue; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+</style>
+<body>
+    <h1>Edit Post</h1>
 
-{% block title %}Edit Post{% endblock %}
+ <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- ✅ Auto form -->
+        <button type="submit">Update Post</button>
+    </form>
+<br>
 
-{% block content %}
-<h2 class="page-title">✏️ Edit Post</h2>
+    <a href="{% url 'detail' pk=post.pk %}">← Back to Post</a>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="actions">
-        <button type="submit" class="btn btn-primary">✅ Update Post</button>
-        <a href="{% url 'post_detail' post.pk %}" class="btn btn-outline">Cancel</a>
-    </div>
-</form>
-{% endblock %}
+</body>
+</html>

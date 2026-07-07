@@ -27,7 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-ac9cli-_t+#*hhw&$*!#fp%@im8*1m_5923fp#&b%6o*t8=2rx')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+#DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = True 
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', 'blogproj.vercel.app']
 CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app', 'https://blogproj.vercel.app']
