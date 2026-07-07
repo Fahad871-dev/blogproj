@@ -5,7 +5,8 @@
     <title>{% block title %}My Blog{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'posts/style.css' %}">
 
-  <style>
+<style>
+    /* ===== GLOBAL ===== */
     * {
         margin: 0;
         padding: 0;
@@ -19,20 +20,20 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin: 0;
         padding: 20px;
     }
 
     .container {
         max-width: 1000px;
         width: 100%;
-        margin: 0 auto;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 40px;
+        padding: 40px 35px;
+        background: white;
         border-radius: 20px;
         box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        backdrop-filter: blur(10px);
     }
 
+    /* ===== NAVIGATION ===== */
     .nav {
         display: flex;
         justify-content: space-between;
@@ -91,6 +92,7 @@
         font-weight: 500;
     }
 
+    /* ===== BUTTONS ===== */
     .btn {
         display: inline-block;
         padding: 8px 18px;
@@ -127,6 +129,7 @@
     }
     .btn-danger:hover { background: #f56565; }
 
+    /* ===== SEARCH FORM ===== */
     .search-form {
         display: flex;
         gap: 12px;
@@ -134,32 +137,45 @@
         flex-wrap: wrap;
     }
 
-    .search-form input[type="text"] {
-        flex: 1;
-        padding: 10px 16px;
-        border: 2px solid #e2e8f0;
-        border-radius: 10px;
-        font-size: 16px;
-        min-width: 150px;
-    }
-
+    .search-form input[type="text"],
     .search-form select {
         padding: 10px 16px;
         border: 2px solid #e2e8f0;
         border-radius: 10px;
         font-size: 16px;
         background: white;
-        min-width: 130px;
+        flex: 1;
+        min-width: 150px;
+        transition: border 0.3s;
+    }
+
+    .search-form input:focus,
+    .search-form select:focus {
+        outline: none;
+        border-color: #667eea;
     }
 
     .search-form button {
         padding: 10px 25px;
-        background: #667eea;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         border: none;
         border-radius: 10px;
         font-weight: 600;
         cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .search-form button:hover {
+        transform: scale(1.02);
+    }
+
+    /* ===== POSTS ===== */
+    .page-title {
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 20px;
+        text-align: center;
     }
 
     .posts-grid {
@@ -214,29 +230,120 @@
         margin-top: 10px;
     }
 
-    .page-title {
-        color: #333;
-        font-size: 28px;
-        margin-bottom: 20px;
-        text-align: center;
+    /* ===== FORMS (Create/Edit) ===== */
+    form input,
+    form textarea {
+        width: 100%;
+        padding: 12px 16px;
+        margin: 8px 0 18px 0;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: border 0.3s;
+        box-sizing: border-box;
     }
 
+    form input:focus,
+    form textarea:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+
+    form label {
+        font-weight: 600;
+        color: #333;
+        margin-top: 10px;
+    }
+
+    /* ===== DELETE CONFIRM ===== */
+    .delete-box {
+        text-align: center;
+        padding: 40px 20px;
+        background: #fff5f5;
+        border-radius: 12px;
+        border: 2px solid #fc8181;
+    }
+
+    .delete-box h1 {
+        color: #e53e3e;
+        font-size: 28px;
+    }
+
+    .delete-box .warning {
+        color: #e53e3e;
+        font-weight: 500;
+        margin: 15px 0;
+    }
+
+    .delete-box .actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    /* ===== DETAIL PAGE ===== */
+    .detail-post {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        border-left: 5px solid #667eea;
+    }
+
+    .detail-post h1 {
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    .detail-post .author {
+        color: #667eea;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .detail-post .meta {
+        color: #999;
+        font-size: 14px;
+        margin: 8px 0 20px 0;
+    }
+
+    .detail-post .content {
+        color: #444;
+        font-size: 18px;
+        line-height: 1.8;
+        margin: 20px 0;
+    }
+
+    .detail-post .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
         .nav {
             flex-direction: column;
             align-items: stretch;
             text-align: center;
         }
+
         .nav-right {
             justify-content: center;
             margin-top: 10px;
         }
+
         .post {
             padding: 15px;
         }
+
         .search-form {
             flex-direction: column;
         }
+
         .container {
             padding: 20px;
         }
