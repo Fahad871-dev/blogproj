@@ -101,17 +101,18 @@ class PostCreateView(LoginRequiredMixin,CreateView): #creade post
 
     
 
-class PostUpdateView(LoginRequiredMixin,UpdateView):
-    model=Post
-    #fields=['title', 'content'] 
-    form_class=PostForm
-    template_name='posts/edit_form.html'
-    success_url=reverse_lazy('home')
+class PostUpdateView(LoginRequiredMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'posts/edit_form.html'
 
-    def get_queryset(self):  
+    def get_queryset(self):
         if self.request.user.is_superuser:
             return Post.objects.all()
         return Post.objects.filter(author=self.request.user)
+
+    def get_success_url(self):
+        return reverse_lazy('detail', kwargs={'pk': self.object.pk})  # ✅ 'detail'    
 
    
 
